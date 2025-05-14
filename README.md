@@ -88,8 +88,8 @@ This repository serves as a learning and revision resource for students and prof
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/uncodingthecode/DAA-Algorithms.git
-   cd DAA-Algorithms
+   git clone https://github.com/uncodingthecode/DAA.git
+   cd DAA
    ```
 
 2. **Compile and Run an Algorithm**
