@@ -31,10 +31,8 @@ int partition(int arr[], int low, int high) {
 // The QuickSort function implementation
 void quickSort(int arr[], int low, int high) {
     if (low < high) {
-        
         // pi is the partition return index of pivot
         int pi = partition(arr, low, high);
-
         // Recursion calls for smaller elements
         // and greater or equals elements
         quickSort(arr, low, pi - 1);
@@ -51,12 +49,11 @@ void swap(int* a, int* b) {
 int main() {
     int arr[] = {10, 7, 8, 9, 1, 5};
     int n = sizeof(arr) / sizeof(arr[0]);
-
+    printf("Sorted Array is: ");
     quickSort(arr, 0, n - 1);
     for (int i = 0; i < n; i++) {
         printf("%d ", arr[i]);
     }
-    
     return 0;
 }
 
