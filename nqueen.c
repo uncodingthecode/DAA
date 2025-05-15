@@ -65,3 +65,65 @@ int main(){
     display();
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 1) Input:
+// - A single integer N (board size)
+// - Goal: Place N queens on an N×N chessboard
+// - No two queens can attack each other (no same row, column, or diagonal)
+
+// 2) Algorithm:
+// Backtracking:
+// - Place a queen row by row
+// - For each row, try placing a queen in every column
+// - Check for safety (no conflict in column or diagonals)
+// - Backtrack if no valid placement in current row
+
+// 3) Time Complexity:
+// O(N!) in worst case (many permutations tried)
+// Due to pruning, faster in practice
+
+// 4) Space Complexity:
+// O(N) for recursion stack
+// O(N^2) if using a full board; O(N) if using arrays for column/diagonal checks
+
+// 5) Advantages / Disadvantages:
+// + Elegant recursive solution
+// + Demonstrates backtracking efficiently
+// - Exponential time, not scalable for very large N
+
+// 6) Recurrence Relation:
+// T(N) = N * T(N - 1) in worst case (placing N queens recursively)
+// Backtracks if no valid placement, pruning the search tree
+
+// 7) Summary (2 lines):
+// Solves the N-Queens problem using backtracking.
+// Places queens row-wise, ensuring safe column and diagonal positions.
+
