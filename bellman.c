@@ -21,23 +21,27 @@ Graph* createGraph(int V, int E) {
 
 void BellmanFord(Graph* graph, int src) {
     int V = graph->V, E = graph->E;
-    int dist[V];
+    int* dist = (int*)malloc(V * sizeof(int));
 
+    // Step 1: Initialize distances
     for (int i = 0; i < V; i++)
         dist[i] = INT_MAX;
     dist[src] = 0;
 
+    // Step 2: Relax all edges V-1 times
     for (int i = 1; i <= V - 1; i++) {
         for (int j = 0; j < E; j++) {
             int u = graph->edges[j].src;
             int v = graph->edges[j].dest;
             int w = graph->edges[j].weight;
 
-            if (dist[u] != INT_MAX && dist[u] + w < dist[v])
+            if (dist[u] != INT_MAX && dist[u] + w < dist[v]) {
                 dist[v] = dist[u] + w;
+            }
         }
     }
 
+    // Step 3: Check for negative-weight cycles
     for (int j = 0; j < E; j++) {
         int u = graph->edges[j].src;
         int v = graph->edges[j].dest;
@@ -45,33 +49,46 @@ void BellmanFord(Graph* graph, int src) {
 
         if (dist[u] != INT_MAX && dist[u] + w < dist[v]) {
             printf("Graph contains a negative weight cycle\n");
+            free(dist);
             return;
         }
     }
 
-    printf("Vertex\tDistance from Source\n");
-    for (int i = 0; i < V; i++)
-        printf("%d\t\t%d\n", i, dist[i]);
+    // Print final distances
+    printf("Vertex\tDistance from Source %d\n", src);
+    for (int i = 0; i < V; i++) {
+        if (dist[i] == INT_MAX)
+            printf("%d\t\tINF\n", i);
+        else
+            printf("%d\t\t%d\n", i, dist[i]);
+    }
+
+    free(dist);
 }
 
 int main() {
     int V = 5, E = 8;
     Graph* graph = createGraph(V, E);
 
+    // Define edges
     graph->edges[0] = (Edge){0, 1, 2};
     graph->edges[1] = (Edge){0, 2, 4};
     graph->edges[2] = (Edge){1, 2, 1};
     graph->edges[3] = (Edge){1, 3, 5};
     graph->edges[4] = (Edge){2, 4, 3};
-    graph->edges[5] = (Edge){3, 2, -3};
+    graph->edges[5] = (Edge){3, 2, 3};
     graph->edges[6] = (Edge){3, 1, 1};
-    graph->edges[7] = (Edge){4, 3, -2}; // change to -4 to create a negative cycle
+    graph->edges[7] = (Edge){4, 3, 2};
 
-    printf("\nRunning Bellman-Ford Algorithm:\n");
+    printf("Running Bellman-Ford Algorithm:\n");
     BellmanFord(graph, 0);
+
+    free(graph->edges);
+    free(graph);
 
     return 0;
 }
+
 
 
 
